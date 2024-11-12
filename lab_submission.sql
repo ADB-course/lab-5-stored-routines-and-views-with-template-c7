@@ -63,13 +63,3 @@ LIMIT 5;
 
 
 
-
-SELECT
-     offices.city AS 'Office Location (City)',
-     offices.country AS 'Office Location (Country)',
-     offices.territory AS 'Office Location (Territory)',
-     offices.officeCode AS 'Office Code',
-     FUNC_LAB6(offices.officeCode) AS 'Average Salary'
-    
-     FROM
-    offices;
