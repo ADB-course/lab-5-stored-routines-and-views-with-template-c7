@@ -29,12 +29,12 @@ DELIMITER $$
 CREATE FUNCTION FUNC_LAB5(officeCode INT) RETURNS DOUBLE
 DETERMINISTIC
 BEGIN
-  DECLARE avgSalary DOUBLE;
-  SELECT AVG(es.employees_salary_amount) INTO avgSalary
-  FROM employees_salary es
-  JOIN employees e ON es.employeeNumber = e.employeeNumber
-  WHERE e.officeCode = officeCode;
-  RETURN avgSalary;
+    DECLARE avgSalary DOUBLE;
+    SELECT COALESCE(AVG(es.employees_salary_amount), 0) INTO avgSalary
+    FROM employees_salary es
+    JOIN employees e ON es.employeeNumber = e.employeeNumber
+    WHERE e.officeCode = officeCode;
+    RETURN avgSalary;
 END$$
 DELIMITER ;
 
@@ -60,3 +60,16 @@ ORDER BY
    es.employees_salary_amount DESC
 LIMIT 5;
     
+
+
+
+
+SELECT
+     offices.city AS 'Office Location (City)',
+     offices.country AS 'Office Location (Country)',
+     offices.territory AS 'Office Location (Territory)',
+     offices.officeCode AS 'Office Code',
+     FUNC_LAB6(offices.officeCode) AS 'Average Salary'
+    
+     FROM
+    offices;
